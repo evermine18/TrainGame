@@ -1,7 +1,7 @@
-#TrainGame
-###A 2D train driving game/simulator
+# TrainGame
+### A 2D train driving game/simulator
 
-##TODO
+## TODO
 - [x] Basic sprite rendering
 - [ ] Sprite rendering with png
 - [ ] Engine that is responsible for updating the position of each object
