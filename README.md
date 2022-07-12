@@ -3,7 +3,8 @@
 
 ## TODO
 - [x] Basic sprite rendering
-- [ ] Sprite rendering with png
+- [x] Sprite rendering with png
+- [ ] Update sprite position
 - [ ] Engine that is responsible for updating the position of each object
 - [ ] Keyboard events
 - [ ] Engine phisics
