@@ -8,9 +8,9 @@ pg.init()
 # Set up the drawing window
 screen = pg.display.set_mode([500, 500])
 x=255
-tren=GameObject("Tren",90,90)
+tren=GameObject("Tren",["objects","train.png"],500,450)
 gameObjs= pg.sprite.RenderPlain()
-gameObjs.add(tren.getRenderObj())
+gameObjs.add(tren)
 # Run until the user asks to quit
 running = True
 while running:
