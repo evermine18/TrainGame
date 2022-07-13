@@ -13,7 +13,7 @@ g_engine=gameEngine(True)
 while g_engine.isRunning():
     g_engine.keyEventsCheck()
     # Screen print 
-    screen.fill((255, 255, 255))
+    screen.fill((220, 236, 251))
     g_engine.renderObjects(screen,clock.get_fps())
     # Flip the display
     pg.display.flip()

@@ -1,19 +1,22 @@
 from distutils.log import debug
 from re import X
 import pygame as pg
-import engine.train as train
+import engine.train,engine.object
 
 colliders=[]
 
 class gameEngine():
     def __init__(self,debug):
-        self.train = train.TrainObject("Tren",["objects","train.png"],500,450)
+        self.train = engine.train.TrainObject("Train",["objects","train.png"],500,450)
         self.gameObjs = pg.sprite.RenderPlain()
-        self.gameObjs.add(self.train)
+        
         self.running = True
         self.debug=debug
         if(debug):
             self.font = pg.font.SysFont(None, 24)
+        self.tree = engine.object.Object("Tree",["objects","tree.png"],100,380)
+        self.gameObjs.add(self.tree)
+        self.gameObjs.add(self.train)
 
     def isRunning(self):
         return self.running

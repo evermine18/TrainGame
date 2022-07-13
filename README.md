@@ -1,7 +1,7 @@
 # TrainGame
 ### A 2D train driving game/simulator
 
-## TODO
+## MINIMAL TODO
 - [x] Basic sprite rendering
 - [x] Sprite rendering with png
 - [x] Update sprite position
