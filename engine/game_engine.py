@@ -1,38 +1,41 @@
+from distutils.log import debug
 from re import X
 import pygame as pg
-import os
+import engine.train as train
 
 colliders=[]
 
-class GameObject(pg.sprite.Sprite):
+class gameEngine():
+    def __init__(self,debug):
+        self.train = train.TrainObject("Tren",["objects","train.png"],500,450)
+        self.gameObjs = pg.sprite.RenderPlain()
+        self.gameObjs.add(self.train)
+        self.running = True
+        self.debug=debug
+        if(debug):
+            self.font = pg.font.SysFont(None, 24)
 
-    def __init__(self,name,sprite_dir,x=0,y=0):
-        super(GameObject,self).__init__()
-        self.name=name
-        self.x=x
-        self.y=y
-        self.speed=0
-        self.image=pg.image.load(os.path.join("sprites",sprite_dir[0],sprite_dir[1]))
-        self.rect = self.image.get_rect()
-        self.rect.center = (x,y)
+    def isRunning(self):
+        return self.running
 
-    def getCoords(self):
-        print("Coords from gameObject ",self.name," x=",self.x," y=",self.y)
-
-    def getSpeed(self):
-        return self.speed
-
-    def increaseSpeed(self):
-        self.speed+=1
-
-    def decreaseSpeed(self):
-        self.speed-=1
-
-    def getRenderObj(self):
-        return self.renderObj
-
-    def update(self):
-        self.rect.x = self.rect.x + self.speed
-
-
+    def renderObjects(self,screen,clockFPS):
+        self.gameObjs.draw(screen)
+        self.gameObjs.update()
+        #Draws debug info if Debugging mode is enabled
+        if(self.debug):
+            fps_count = self.font.render('FPS: '+str(clockFPS), True, (0, 255, 0))
+            screen.blit(fps_count, (20, 20))
+            train_speed = self.font.render(' Train Speed: '+str(self.train.getSpeed()), True, (0, 255, 0))
+            screen.blit(train_speed, (15, 50))
+    
+    def keyEventsCheck(self):
+        #Keyboard events
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                self.running = False
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_d:
+                    self.train.increaseSpeed()
+                if event.key == pg.K_a:
+                    self.train.decreaseSpeed()
     

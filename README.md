@@ -4,7 +4,9 @@
 ## TODO
 - [x] Basic sprite rendering
 - [x] Sprite rendering with png
-- [ ] Update sprite position
-- [ ] Engine that is responsible for updating the position of each object
-- [ ] Keyboard events
+- [x] Update sprite position
+- [x] Engine that is responsible for updating the position of each object
+- [x] Keyboard events
+- [ ] More realistic speed
+- [ ] Mapping tool and map load system
 - [ ] Engine phisics
