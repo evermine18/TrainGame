@@ -4,7 +4,7 @@ import os
 def mapRead():
     parsedObjects=[]
     # Open the file to get the data
-    with open(os.path.join("engine","map","map1.map"),'r') as data_map:
+    with open(os.path.join("mapEditor","engine","map","map1.map"),'r') as data_map:
         # We need to parse the data to load into a var 
         for line in data_map:
             objects = line.split(",")
@@ -18,14 +18,22 @@ class mapLoad():
 
     def __init__(self):
         self.mapDefs=mapDefinitions()   # Definition load
-        self.objectList=mapRead()    # Map load
+        self.objectList=[]
         self.loadedMap=[]
-        # Prepare every object into loadedMap for when the engine asks for it
+    def addObject(self,object):
+        self.objectList.append(object)
+    def getMapObjects(self):
         for obj in self.objectList:
             self.loadedMap.append(engine.object.Object(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),int(obj[2])),self.mapDefs.getScale(obj[0])))
-        
-    def getMapObjects(self):
         return self.loadedMap
+    def saveMap(self):
+        mapData=""
+        for i in self.objectList:
+            mapData+=str(i[0])+":"
+            mapData+=str(i[1])+":"
+            mapData+=str(i[2])+","
+        with open(os.path.join("mapEditor","engine","map","map1.map"),'w') as file:
+            file.write(mapData[0:len(mapData)-1])
 
 class mapDefinitions():
 

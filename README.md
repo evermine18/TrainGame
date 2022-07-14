@@ -52,8 +52,8 @@ We will need to install Python 3 and Pygame(library)
 - [x] Update sprite position
 - [x] Engine that is responsible for updating the position of each object
 - [x] Keyboard events
+- [x] Mapping tool and map load system
 - [ ] More realistic speed
-- [ ] Mapping tool and map load system
 - [ ] Engine phisics
 
 # This project uses
