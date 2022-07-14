@@ -1,7 +1,7 @@
 from distutils.log import debug
 from re import X
 import pygame as pg
-import engine.train,engine.object
+import engine.train,engine.object,engine.map_load
 
 colliders=[]
 
@@ -9,13 +9,15 @@ class gameEngine():
     def __init__(self,debug):
         self.train = engine.train.TrainObject("Train",["objects","train.png"],500,450)
         self.gameObjs = pg.sprite.RenderPlain()
-        
+        self.map=engine.map_load.mapLoad()
         self.running = True
         self.debug=debug
         if(debug):
             self.font = pg.font.SysFont(None, 24)
-        self.tree = engine.object.Object("Tree",["objects","tree.png"],100,380)
-        self.gameObjs.add(self.tree)
+        #self.tree = engine.object.Object("Tree",["objects","tree.png"],100,380)
+        #self.gameObjs.add(self.tree)
+        for i in self.map.getMapObjects():
+            self.gameObjs.add(i)
         self.gameObjs.add(self.train)
 
     def isRunning(self):
