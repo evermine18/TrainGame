@@ -7,7 +7,7 @@ colliders=[]
 
 class gameEngine():
     def __init__(self,debug):
-        self.train = engine.train.TrainObject("Train",["objects","train.png"],500,450)
+        self.train = engine.train.TrainObject("Train",["objects","complete_train.png"],1000,450)
         self.gameObjs = pg.sprite.RenderPlain()
         self.map=engine.map_load.mapLoad()
         self.running = True
