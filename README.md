@@ -53,6 +53,7 @@ We will need to install Python 3 and Pygame(library)
 - [x] Engine that is responsible for updating the position of each object
 - [x] Keyboard events
 - [x] Mapping tool and map load system
+- [ ] Camera System
 - [ ] More realistic speed
 - [ ] Engine phisics
 

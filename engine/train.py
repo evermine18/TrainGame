@@ -1,3 +1,4 @@
+from turtle import speed
 import pygame as pg
 import os
 
@@ -8,6 +9,7 @@ class TrainObject(pg.sprite.Sprite):
         self.name=name
         self.x=x
         self.y=y
+        self.route=0
         self.speed=0
         self.image=pg.image.load(os.path.join("sprites",sprite_dir[0],sprite_dir[1]))
         self.rect = self.image.get_rect()
@@ -18,7 +20,8 @@ class TrainObject(pg.sprite.Sprite):
 
     def getSpeed(self):
         return self.speed
-
+    def getCurrentPos(self):
+        return int(self.route)
     def increaseSpeed(self):
         self.speed+=1
 
@@ -26,4 +29,5 @@ class TrainObject(pg.sprite.Sprite):
         self.speed-=1
 
     def update(self):
-        self.rect.x = self.rect.x + self.speed
+        #self.rect.x = self.rect.x + self.speed
+        self.route+=self.speed

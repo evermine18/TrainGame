@@ -26,6 +26,8 @@ class mapLoad():
         for obj in self.objectList:
             self.loadedMap.append(engine.object.Object(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),int(obj[2])),self.mapDefs.getScale(obj[0])))
         return self.loadedMap
+    def getObjectList(self):
+        return self.objectList
     def saveMap(self):
         mapData=""
         for i in self.objectList:

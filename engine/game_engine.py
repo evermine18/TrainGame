@@ -1,13 +1,15 @@
 from distutils.log import debug
 from re import X
 import pygame as pg
-import engine.train,engine.object,engine.map_load
+import engine.train,engine.object,engine.map_load,engine.camera
 
 colliders=[]
 
 class gameEngine():
     def __init__(self,debug):
-        self.train = engine.train.TrainObject("Train",["objects","complete_train.png"],1000,450)
+        self.camera = engine.camera.Camera()
+        self.train = engine.train.TrainObject("Train",["objects","complete_train.png"],-500,450)
+        self.trains = pg.sprite.RenderPlain()
         self.gameObjs = pg.sprite.RenderPlain()
         self.map=engine.map_load.mapLoad()
         self.running = True
@@ -18,19 +20,22 @@ class gameEngine():
         #self.gameObjs.add(self.tree)
         for i in self.map.getMapObjects():
             self.gameObjs.add(i)
-        self.gameObjs.add(self.train)
+        self.trains.add(self.train)
 
     def isRunning(self):
         return self.running
 
     def renderObjects(self,screen,clockFPS):
+        self.camera.update()
+        self.trains.draw(screen)
+        self.trains.update()
         self.gameObjs.draw(screen)
-        self.gameObjs.update()
+        self.gameObjs.update(self.camera.getCords())
         #Draws debug info if Debugging mode is enabled
         if(self.debug):
             fps_count = self.font.render('FPS: '+str(clockFPS), True, (0, 255, 0))
             screen.blit(fps_count, (20, 20))
-            train_speed = self.font.render(' Train Speed: '+str(self.train.getSpeed()), True, (0, 255, 0))
+            train_speed = self.font.render(' Train Speed: '+str(self.camera.getSpeed()), True, (0, 255, 0))
             screen.blit(train_speed, (15, 50))
     
     def keyEventsCheck(self):
@@ -39,8 +44,8 @@ class gameEngine():
             if event.type == pg.QUIT:
                 self.running = False
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_d:
-                    self.train.increaseSpeed()
                 if event.key == pg.K_a:
-                    self.train.decreaseSpeed()
+                    self.camera.increaseSpeed()
+                if event.key == pg.K_d:
+                    self.camera.decreaseSpeed()
     

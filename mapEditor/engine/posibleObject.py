@@ -18,10 +18,10 @@ class Object(pg.sprite.Sprite):
         self.rect.center = coords
 
     def getCoords(self):
-        print("Coords from gameObject ",self.name," x=",self.x," y=",self.y)
+        return (self.x,self.y)
 
-    def getObjectDetails(self):
-        return [str(self.id),self.x,self.y]
+    def getObjectDetails(self,cameraCoords):
+        return [str(self.id),self.x-cameraCoords[0],self.y]
 
     def setCords(self,x,y):
         self.x = x
