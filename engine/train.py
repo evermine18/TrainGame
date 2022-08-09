@@ -16,12 +16,14 @@ class TrainObject(pg.sprite.Sprite):
         self.rect.center = (x,y)
 
     def getCoords(self):
-        print("Coords from gameObject ",self.name," x=",self.x," y=",self.y)
+        return "Coords from gameObject ",self.name," x=",self.x," y=",self.y
 
     def getSpeed(self):
         return self.speed
+
     def getCurrentPos(self):
         return int(self.route)
+        
     def increaseSpeed(self):
         self.speed+=1
 
@@ -29,5 +31,7 @@ class TrainObject(pg.sprite.Sprite):
         self.speed-=1
 
     def update(self):
+        #old train code, not used
         #self.rect.x = self.rect.x + self.speed
-        self.route+=self.speed
+        #self.route+=self.speed
+        pass

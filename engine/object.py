@@ -9,7 +9,6 @@ class Object(pg.sprite.Sprite):
         self.name=name
         self.image=pg.image.load(os.path.join("sprites",sprite_dir[0],sprite_dir[1])).convert_alpha()
         self.image=pg.transform.scale(self.image, scale)
-        print(self.image.get_rect())
         self.rect = self.image.get_rect()
         self.rect.center = coords
         self.x=self.rect.x

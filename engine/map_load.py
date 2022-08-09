@@ -32,7 +32,10 @@ class mapDefinitions():
     def __init__(self):
         self.mapDefs={
             "1":[["objects","tree.png"],(140, 250)],
-            "2":[["objects","bush1.png"],(100, 100)]}
+            "2":[["objects","bush1.png"],(100, 100)],
+            "3":[["objects","bush2.png"],(100, 100)],
+            "4":[["objects","bushflowers1.png"],(100, 100)],
+            "5":[["objects","bushflowers2.png"],(100, 100)]}
     
     # Returns a list of a sprite dir of the requested object
     def getDir(self,name):
@@ -40,6 +43,8 @@ class mapDefinitions():
             return self.mapDefs[name][0]
         else:
             return ["objects","test.png"]
+
+    #Returns the scale of the requested object
     def getScale(self,name):
         if (name in self.mapDefs):
             return self.mapDefs[name][1]
