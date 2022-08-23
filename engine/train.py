@@ -34,4 +34,5 @@ class TrainObject(pg.sprite.Sprite):
         #old train code, not used
         #self.rect.x = self.rect.x + self.speed
         #self.route+=self.speed
+        self.rect.y = pg.display.get_window_size()[1]-self.y
         pass

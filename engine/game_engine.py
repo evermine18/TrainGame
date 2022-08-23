@@ -8,7 +8,7 @@ colliders=[]
 class gameEngine():
     def __init__(self,debug):
         self.camera = engine.camera.Camera()
-        self.train = engine.train.TrainObject("Train",["objects","complete_train.png"],-500,450)
+        self.train = engine.train.TrainObject("Train",["objects","complete_train.png"],-500,100)
         self.trains = pg.sprite.RenderPlain()
         self.gameObjs = pg.sprite.RenderPlain()
         self.map=engine.map_load.mapLoad()
@@ -48,4 +48,9 @@ class gameEngine():
                     self.camera.increaseSpeed()
                 if event.key == pg.K_d:
                     self.camera.decreaseSpeed()
+            if event.type==pg.VIDEORESIZE:
+                print("si")
+                self.gameObjs.empty()
+                for i in self.map.getMapObjects():
+                    self.gameObjs.add(i)
     

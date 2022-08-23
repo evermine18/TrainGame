@@ -20,8 +20,8 @@ class Object(pg.sprite.Sprite):
     def getCoords(self):
         return (self.x,self.y)
 
-    def getObjectDetails(self,cameraCoords):
-        return [str(self.id),self.x-cameraCoords[0],self.y]
+    def getObjectDetails(self,cameraCoords,windowsSize):
+        return [str(self.id),self.x-cameraCoords[0],windowsSize[1]-self.y]
 
     def setCords(self,x,y):
         self.x = x

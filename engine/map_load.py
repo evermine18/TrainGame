@@ -1,5 +1,6 @@
 import engine.object
 import os
+import pygame as pg
 
 def mapRead():
     parsedObjects=[]
@@ -21,10 +22,12 @@ class mapLoad():
         self.objectList=mapRead()    # Map load
         self.loadedMap=[]
         # Prepare every object into loadedMap for when the engine asks for it
-        for obj in self.objectList:
-            self.loadedMap.append(engine.object.Object(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),int(obj[2])),self.mapDefs.getScale(obj[0])))
+        
         
     def getMapObjects(self):
+        self.loadedMap.clear()
+        for obj in self.objectList:
+            self.loadedMap.append(engine.object.Object(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),pg.display.get_window_size()[1]-int(obj[2])),self.mapDefs.getScale(obj[0])))
         return self.loadedMap
 
 class mapDefinitions():

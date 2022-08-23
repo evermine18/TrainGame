@@ -4,7 +4,7 @@ from engine.game_engine import gameEngine
 pg.init()
 clock = pg.time.Clock()
 # Set up the drawing window with name and res
-screen = pg.display.set_mode([500, 500])
+screen = pg.display.set_mode([500, 500], pg.RESIZABLE)
 pg.display.set_caption("Train Driver")
 # Engine setup
 g_engine=gameEngine(True)

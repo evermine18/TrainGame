@@ -69,11 +69,12 @@ class gameEngine():
                     print(self.map.getObjectList())
             if event.type == pg.MOUSEBUTTONUP:
                 print("New Object x=",self.pObject.getCoords()[0],"y=",self.pObject.getCoords()[1])
-                self.map.addObject(self.pObject.getObjectDetails(self.camera.getCords()))
+                self.map.addObject(self.pObject.getObjectDetails(self.camera.getCords(),pg.display.get_window_size()))
                 self.gameObjs.empty()
                 for i in self.map.getMapObjects():
                     self.gameObjs.add(i)
                 #self.gameObjs.add(self.pObject)
                 #self.gameObjs.add(self.train)
+            
 
     
