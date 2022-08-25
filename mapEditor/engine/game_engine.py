@@ -11,7 +11,7 @@ class gameEngine():
         self.train = engine.train.TrainObject("Train",["objects","complete_train.png"],1000,450)
         self.trains = pg.sprite.RenderPlain()
         self.pObjects = pg.sprite.RenderPlain()
-        self.gameObjs = pg.sprite.RenderPlain()
+        self.gameObjs = [pg.sprite.RenderPlain(),pg.sprite.RenderPlain(),pg.sprite.RenderPlain()]
         self.map=engine.map_system.mapLoad()
         self.mapDefs=engine.map_system.mapDefinitions()
         self.pObject = engine.posibleObject.Object("Unknown",self.mapDefs.getDir("1"),(300,450),self.mapDefs.getScale("1"))
@@ -21,11 +21,25 @@ class gameEngine():
             self.font = pg.font.SysFont(None, 24)
         #self.tree = engine.object.Object("Tree",["objects","tree.png"],100,380)
         #self.gameObjs.add(self.tree)
-        for i in self.map.getMapObjects():
-            self.gameObjs.add(i)
+        #This loads the 3 first sections (-1,0,1)
+        for i in self.map.getMapObjects(-1):
+            self.gameObjs[0].add(i)
+        for i in self.map.getMapObjects(0):
+            self.gameObjs[1].add(i)
+        for i in self.map.getMapObjects(1):
+            self.gameObjs[2].add(i)
         self.trains.add(self.train)
         self.pObjects.add(self.pObject)
+        self.section=0
 
+    def checkSectionChange(self):
+        if self.camera.getCords()[0]>pg.display.get_window_size()[0]*self.section:
+            return 1
+        elif self.camera.getCords()[0]<(pg.display.get_window_size()[0]*self.section)-pg.display.get_window_size()[0]:
+            return -1
+        else:
+            return 0
+    
     def isRunning(self):
         return self.running
 
@@ -36,8 +50,15 @@ class gameEngine():
         #self.trains.draw(screen)
         #self.trains.update()
         self.pObject.setCords(x,y)
-        self.gameObjs.draw(screen)
-        self.gameObjs.update(self.camera.getCords())
+        # POSIBLE VISIBLE SECTION 0
+        self.gameObjs[0].draw(screen)
+        self.gameObjs[0].update(self.camera.getCords())
+        # VISIBLE SECTION 1
+        self.gameObjs[1].draw(screen)
+        self.gameObjs[1].update(self.camera.getCords())
+        # POSIBLE VISIBLE SECTION 2
+        self.gameObjs[2].draw(screen)
+        self.gameObjs[2].update(self.camera.getCords())
         self.pObjects.update()
         #Draws debug info if Debugging mode is enabled
         if(self.debug):
@@ -47,6 +68,22 @@ class gameEngine():
             screen.blit(train_speed, (15, 50))
             train_speed = self.font.render(' Train Coords: '+str(self.train.getCoords())+"Mouse: "+str(x)+", "+str(y), True, (0, 255, 0))
             screen.blit(train_speed, (15, 80))
+        # TODO 
+        # Make a other function for conditions and game checks or map loads
+        if self.checkSectionChange()==1:
+            print("Load next section")
+            self.section+=1
+            self.gameObjs.pop(0)
+            self.gameObjs.append(pg.sprite.RenderPlain())
+            for i in self.map.getMapObjects(self.section+1):
+                self.gameObjs[2].add(i)
+        elif self.checkSectionChange()==-1:
+            print("Load last section")
+            self.section-=1
+            self.gameObjs.pop(0)
+            self.gameObjs.append(pg.sprite.RenderPlain())
+            for i in self.map.getMapObjects(self.section-1):
+                self.gameObjs[0].add(i)
     
     def keyEventsCheck(self):
         #Keyboard events
@@ -55,9 +92,9 @@ class gameEngine():
                 self.running = False
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_d:
-                    self.camera.increaseSpeed()
-                if event.key == pg.K_a:
                     self.camera.decreaseSpeed()
+                if event.key == pg.K_a:
+                    self.camera.increaseSpeed()
                 if event.key == pg.K_RIGHT:
                     self.pObject.nextObject()
                 if event.key == pg.K_LEFT:
@@ -70,11 +107,28 @@ class gameEngine():
             if event.type == pg.MOUSEBUTTONUP:
                 print("New Object x=",self.pObject.getCoords()[0],"y=",self.pObject.getCoords()[1])
                 self.map.addObject(self.pObject.getObjectDetails(self.camera.getCords(),pg.display.get_window_size()))
-                self.gameObjs.empty()
-                for i in self.map.getMapObjects():
-                    self.gameObjs.add(i)
+                self.gameObjs[0].empty()
+                self.gameObjs[1].empty()
+                self.gameObjs[2].empty()
+                for i in self.map.getMapObjects(self.section-1):
+                    self.gameObjs[0].add(i)
+                for i in self.map.getMapObjects(self.section):
+                    self.gameObjs[1].add(i)
+                for i in self.map.getMapObjects(self.section+1):
+                    self.gameObjs[2].add(i)
                 #self.gameObjs.add(self.pObject)
                 #self.gameObjs.add(self.train)
+            if event.type==pg.VIDEORESIZE:
+                print("si")
+                self.gameObjs.clear()
+                self.gameObjs=[pg.sprite.RenderPlain(),pg.sprite.RenderPlain(),pg.sprite.RenderPlain()]
+                for i in self.map.getMapObjects(self.section-1):
+                    self.gameObjs[0].add(i)
+                for i in self.map.getMapObjects(self.section):
+                    self.gameObjs[1].add(i)
+                for i in self.map.getMapObjects(self.section+1):
+                    self.gameObjs[2].add(i)
+
             
 
     

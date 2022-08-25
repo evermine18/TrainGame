@@ -23,10 +23,13 @@ class mapLoad():
         self.loadedMap=[]
     def addObject(self,object):
         self.objectList.append(object)
-    def getMapObjects(self):
+    def getMapObjects(self,section):
         self.loadedMap.clear()
         for obj in self.objectList:
-            self.loadedMap.append(engine.object.Object(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),pg.display.get_window_size()[1]-int(obj[2])),self.mapDefs.getScale(obj[0])))
+            if int(obj[1])>(section-1)*pg.display.get_window_size()[1] and int(obj[1])>section*pg.display.get_window_size()[1]:
+                self.loadedMap.append(engine.object.Object(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),pg.display.get_window_size()[1]-int(obj[2])),self.mapDefs.getScale(obj[0])))
+            elif section<0 and int(obj[1])<(section-1)*pg.display.get_window_size()[1] and int(obj[1])<section*pg.display.get_window_size()[1]:
+                self.loadedMap.append(engine.object.Object(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),pg.display.get_window_size()[1]-int(obj[2])),self.mapDefs.getScale(obj[0])))
         return self.loadedMap
     def getObjectList(self):
         return self.objectList

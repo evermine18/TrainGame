@@ -18,6 +18,6 @@ class Object(pg.sprite.Sprite):
         print("Coords from gameObject ",self.name," x=",self.x," y=",self.y)
     
     def update(self,cameraCords):
-        self.rect.x=cameraCords[0]+self.x
+        self.rect.x=(cameraCords[0]*-1)+self.x
         #print(self.rect.x)
         #self.rect.y=self.train.y-self.y
