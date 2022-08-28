@@ -1,5 +1,5 @@
 import pygame as pg
-import engine.train,engine.object,engine.map_load,engine.camera
+import engine.train,engine.object,engine.map_load,engine.camera,engine.UI.UIManager
 
 colliders=[]
 
@@ -25,7 +25,7 @@ class gameEngine():
             self.gameObjs[2].add(i)
         self.trains.add(self.train)
         self.section=0
-    
+        self.uiManager=engine.UI.UIManager.UI(self)
     def isRunning(self):
         return self.running
 
@@ -38,6 +38,7 @@ class gameEngine():
             return 0
 
     def renderObjects(self,screen,clockFPS):
+        #self.uiManager.render(screen)
         self.camera.update()
         self.trains.draw(screen)
         self.trains.update()
@@ -74,7 +75,6 @@ class gameEngine():
             self.gameObjs.append(pg.sprite.RenderPlain())
             for i in self.map.getMapObjects(self.section-1):
                 self.gameObjs[0].add(i)
-    
     def keyEventsCheck(self):
         #Keyboard events
         for event in pg.event.get():
@@ -85,6 +85,7 @@ class gameEngine():
                     self.camera.decreaseSpeed()
                 if event.key == pg.K_d:
                     self.camera.increaseSpeed()
+                
             if event.type==pg.VIDEORESIZE:
                 print("si")
                 self.gameObjs.clear()
