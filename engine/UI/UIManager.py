@@ -11,3 +11,5 @@ class UI():
 
     def render(self,screen):
         self.mainmenu.render(screen)
+    def checkButtonPressed(self):
+        return self.mainmenu.buttonFunc()

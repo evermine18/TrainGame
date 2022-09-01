@@ -38,7 +38,7 @@ class gameEngine():
             return 0
 
     def renderObjects(self,screen,clockFPS):
-        #self.uiManager.render(screen)
+        self.uiManager.render(screen)
         self.camera.update()
         self.trains.draw(screen)
         self.trains.update()
@@ -85,7 +85,9 @@ class gameEngine():
                     self.camera.decreaseSpeed()
                 if event.key == pg.K_d:
                     self.camera.increaseSpeed()
-                
+            #Mouse check
+            if event.type == pg.MOUSEBUTTONUP:
+                print(self.uiManager.checkButtonPressed())    
             if event.type==pg.VIDEORESIZE:
                 print("si")
                 self.gameObjs.clear()
