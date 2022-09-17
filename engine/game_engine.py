@@ -1,5 +1,7 @@
 import pygame as pg
 import engine.train,engine.object,engine.map_load,engine.camera,engine.UI.UIManager
+import engine.multiplayer.connection
+import time,threading
 
 colliders=[]
 
@@ -10,6 +12,9 @@ class gameEngine():
         self.trains = pg.sprite.RenderPlain()
         self.gameObjs = [pg.sprite.RenderPlain(),pg.sprite.RenderPlain(),pg.sprite.RenderPlain()]
         self.map=engine.map_load.mapLoad()
+        #MPTest, making mptrain list and we start the mp constructor
+        #self.mpTrains={}
+        #self.mp=engine.multiplayer.connection.connection(self.mpTrains,self.camera)
         self.running = True
         self.debug=debug
         if(debug):
@@ -26,8 +31,18 @@ class gameEngine():
         self.trains.add(self.train)
         self.section=0
         self.uiManager=engine.UI.UIManager.UI(self)
+        #printInfo=threading.Thread(target=self.mpTrainList)
+        #printInfo.start()
+
     def isRunning(self):
         return self.running
+    
+    def mpTrainList(self):
+        while self.running:
+            print("MPTrains: ", self.mpTrains)
+            for train in self.mpTrains.values():
+                print(train.getCoords())
+            time.sleep(3)
 
     def checkSectionChange(self):
         if self.camera.getCords()[0]>pg.display.get_window_size()[0]*self.section:
@@ -38,8 +53,11 @@ class gameEngine():
             return 0
 
     def renderObjects(self,screen,clockFPS):
-        self.uiManager.render(screen)
+        #self.uiManager.render(screen)
         self.camera.update()
+        #Multiplayer Update in progress
+        #for train in self.mpTrains.values():
+        #    screen.blit(train.image,train.getCoords())
         self.trains.draw(screen)
         self.trains.update()
         # POSIBLE VISIBLE SECTION 0
