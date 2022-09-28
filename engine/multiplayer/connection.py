@@ -10,6 +10,12 @@ DISCONNECT_MESSAGE = "00"
 SERVER = "192.168.1.45"
 ADDR = (SERVER, PORT)
 
+#
+#===================================
+#       VERY EXPERIMENTAL
+#===================================
+#
+
 class connection():
     def __init__(self,trains,camera):
         self.trains=trains
@@ -34,20 +40,22 @@ class connection():
         while True:
             #First this method identify the type of data that server are sending
             data_id=self.client.recv(HEADER).decode(FORMAT)
-            if data_id:
-                #Player data like coords, username...
-                if data_id=="01":
-                    playerID=self.client.recv(2).decode(FORMAT)
-                    if playerID in self.trains:
-                        xpos=self.client.recv(6).decode(FORMAT)
-                        ypos=self.client.recv(6).decode(FORMAT)
-                        self.trains[playerID].updateCords(int(xpos))
-                    #If the player not exists we add them to the user dict
-                    else:
-                        self.trains[playerID]=engine.train.TrainObject("Train",["objects","complete_train.png"],-500,100)
-                        xpos=self.client.recv(6).decode(FORMAT)
-                        ypos=self.client.recv(6).decode(FORMAT)
-                        self.trains[playerID].updateCords(int(xpos))
+            #Player data like coords, username...
+            if data_id=="01":
+                print("Recibo el 01")
+                playerID=self.client.recv(2).decode(FORMAT)
+                if playerID in self.trains:
+                    xpos=self.client.recv(6).decode(FORMAT)
+                    ypos=self.client.recv(6).decode(FORMAT)
+                    self.trains[playerID].updateCords(int(xpos))
+                    print("Train in posX", xpos, "by playedID", playerID)
+                #If the player not exists we add them to the user dict
+                else:
+                    print("No existe")
+                    self.trains[playerID]=engine.train.TrainObject("User "+ playerID,["objects","complete_train.png"],-500,100)
+                    xpos=self.client.recv(6).decode(FORMAT)
+                    ypos=self.client.recv(6).decode(FORMAT)
+                    self.trains[playerID].updateCords(int(xpos))
     def sendCords(self):
         while True:
             #Sending data id
@@ -59,4 +67,3 @@ class connection():
             self.client.send(xpos)
             ypos = str("654321").encode(FORMAT)
             self.client.send(ypos)
-            time.sleep(0.01)

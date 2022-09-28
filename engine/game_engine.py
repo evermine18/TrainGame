@@ -31,8 +31,8 @@ class gameEngine():
         self.trains.add(self.train)
         self.section=0
         self.uiManager=engine.UI.UIManager.UI(self)
-        #printInfo=threading.Thread(target=self.mpTrainList)
-        #printInfo.start()
+        printInfo=threading.Thread(target=self.mpTrainList)
+        printInfo.start()
 
     def isRunning(self):
         return self.running
@@ -58,8 +58,9 @@ class gameEngine():
         #Multiplayer Update in progress
         #for train in self.mpTrains.values():
         #    screen.blit(train.image,train.getCoords())
-        self.trains.draw(screen)
-        self.trains.update()
+        #    userTagID = self.font.render(train.getName(), True, (255, 255, 0))
+        #    screen.blit(userTagID, (train.getCoords()[0], train.getCoords()[1]))
+        
         # POSIBLE VISIBLE SECTION 0
         self.gameObjs[0].draw(screen)
         self.gameObjs[0].update(self.camera.getCords())
@@ -69,6 +70,9 @@ class gameEngine():
         # POSIBLE VISIBLE SECTION 2
         self.gameObjs[2].draw(screen)
         self.gameObjs[2].update(self.camera.getCords())
+        #Draw train
+        self.trains.draw(screen)
+        self.trains.update()
         #Draws debug info if Debugging mode is enabled
         if(self.debug):
             fps_count = self.font.render('FPS: '+str(clockFPS), True, (0, 255, 0))
@@ -103,9 +107,10 @@ class gameEngine():
                     self.camera.decreaseSpeed()
                 if event.key == pg.K_d:
                     self.camera.increaseSpeed()
-            #Mouse check
+            #Mouse event
             if event.type == pg.MOUSEBUTTONUP:
                 print(self.uiManager.checkButtonPressed())    
+            #Screen resize event
             if event.type==pg.VIDEORESIZE:
                 print("si")
                 self.gameObjs.clear()

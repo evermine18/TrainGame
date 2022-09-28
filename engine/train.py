@@ -21,6 +21,9 @@ class TrainObject(pg.sprite.Sprite):
     def getSpeed(self):
         return self.speed
 
+    def getName(self):
+        return self.name
+
     def getCurrentPos(self):
         return int(self.route)
         
