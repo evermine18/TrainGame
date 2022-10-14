@@ -93,7 +93,7 @@ class gameEngine():
         elif self.checkSectionChange()==-1:
             print("Load last section")
             self.section-=1
-            self.gameObjs.pop(0)
+            self.gameObjs.pop(2)
             self.gameObjs.append(pg.sprite.RenderPlain())
             for i in self.map.getMapObjects(self.section-1):
                 self.gameObjs[0].add(i)
@@ -108,8 +108,8 @@ class gameEngine():
                 if event.key == pg.K_d:
                     self.camera.increaseSpeed()
             #Mouse event
-            if event.type == pg.MOUSEBUTTONUP:
-                print(self.uiManager.checkButtonPressed())    
+            #if event.type == pg.MOUSEBUTTONUP:
+            #    print(self.uiManager.checkButtonPressed())    
             #Screen resize event
             if event.type==pg.VIDEORESIZE:
                 print("si")
