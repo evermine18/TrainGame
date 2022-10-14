@@ -15,6 +15,8 @@ class gameEngine():
         #MPTest, making mptrain list and we start the mp constructor
         #self.mpTrains={}
         #self.mp=engine.multiplayer.connection.connection(self.mpTrains,self.camera)
+        #printInfo=threading.Thread(target=self.mpTrainList)
+        #printInfo.start()
         self.running = True
         self.debug=debug
         if(debug):
@@ -30,9 +32,7 @@ class gameEngine():
             self.gameObjs[2].add(i)
         self.trains.add(self.train)
         self.section=0
-        self.uiManager=engine.UI.UIManager.UI(self)
-        printInfo=threading.Thread(target=self.mpTrainList)
-        printInfo.start()
+        #self.uiManager=engine.UI.UIManager.UI(self)
 
     def isRunning(self):
         return self.running
