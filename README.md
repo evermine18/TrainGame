@@ -47,11 +47,13 @@ We will need to install Python 3 and Pygame(library)
     ```
 
 # MINIMAL TODO
-- [ ] More realistic speed
-- [ ] Engine phisics
+
+- [ ] Animation system
 - [ ] Add UI to the game with main menu
+- [ ] Train UI
 - [ ] More map editor tools
 - [ ] Possible multiplayer
+- [ ] Engine phisics
 - [x] Basic sprite rendering
 - [x] Sprite rendering with png
 - [x] Update sprite position
@@ -61,6 +63,7 @@ We will need to install Python 3 and Pygame(library)
 - [x] Camera System
 - [x] Render Optimizations
 - [x] Works with any resolution
+- [x] More realistic speed
 
 # This project uses
 
