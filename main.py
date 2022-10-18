@@ -5,9 +5,9 @@ pg.init()
 clock = pg.time.Clock()
 # Set up the drawing window with name and res
 screen = pg.display.set_mode([500, 500], pg.RESIZABLE)
-pg.display.set_caption("Train Driver")
+pg.display.set_caption("TrainSim")
 # Engine setup
-g_engine=gameEngine(True)
+g_engine=gameEngine(False)
 while g_engine.isRunning():
     g_engine.keyEventsCheck()
     # Screen print 

@@ -4,9 +4,13 @@ from engine.UI import UIManager
 import engine.multiplayer.connection
 import time,threading
 
+import os
+
 colliders=[]
 
 class gameEngine():
+    running=True
+
     def __init__(self,debug):
         self.camera = camera.Camera()
         self.train = train.TrainObject("Train",["objects","complete_train.png"],-500,100)
@@ -18,9 +22,7 @@ class gameEngine():
         #self.mp=engine.multiplayer.connection.connection(self.mpTrains,self.camera)
         #printInfo=threading.Thread(target=self.mpTrainList)
         #printInfo.start()
-        self.running = True
         self.debug=debug
-        self.mpTrains = None
         if(debug):
             self.font = pg.font.SysFont("font1", 24)
         #self.tree = engine.object.Object("Tree",["objects","tree.png"],100,380)
@@ -34,16 +36,18 @@ class gameEngine():
             self.gameObjs[2].add(i)
         self.trains.add(self.train)
         self.section=0
-        #self.uiManager=UIManager.UI(self)
+        self.uiManager=UIManager.UI(self)
+        self.background=pg.image.load(os.path.join("sprites","images","background.png")).convert_alpha()
+        self.background=pg.transform.scale(self.background, (pg.display.get_window_size()[0],pg.display.get_window_size()[1]))
 
     def isRunning(self):
         return self.running
     
     def mpTrainList(self):
         while self.running:
-            print("MPTrains: ", self.mpTrains)
-            for train in self.mpTrains.values():
-                print(train.getCoords())
+            #print("MPTrains: ", self.mpTrains)
+            #for train in self.mpTrains.values():
+            #    print(train.getCoords())
             time.sleep(3)
 
     def checkSectionChange(self):
@@ -55,6 +59,8 @@ class gameEngine():
             return 0
 
     def renderObjects(self,screen,clockFPS):
+        #Background
+        screen.blit(self.background,(0,0))
         
         self.camera.update()
         #Multiplayer Update in progress
@@ -99,7 +105,7 @@ class gameEngine():
             self.gameObjs.append(pg.sprite.RenderPlain())
             for i in self.map.getMapObjects(self.section-1):
                 self.gameObjs[0].add(i)
-        #self.uiManager.render(screen)
+        self.uiManager.render(screen)
 
     def keyEventsCheck(self):
         #Keyboard events
@@ -112,11 +118,16 @@ class gameEngine():
                 if event.key == pg.K_d:
                     self.camera.increaseSpeed()
             #Mouse event
-            #if self.uiManager.isActive() == True and event.type == pg.MOUSEBUTTONUP:
-            #    print(self.uiManager.checkButtonPressed())    
+            if self.uiManager.isActive() == True and event.type == pg.MOUSEBUTTONUP:
+                print(self.uiManager.checkButtonPressed())    
             #Screen resize event
             if event.type==pg.VIDEORESIZE:
                 print("si")
+                self.uiManager.reorganizeAll()
+                #Resize background
+                self.background=pg.image.load(os.path.join("sprites","images","background.png")).convert_alpha()
+                self.background=pg.transform.scale(self.background, (pg.display.get_window_size()[0],pg.display.get_window_size()[1]))
+                #Load more objects
                 self.gameObjs.clear()
                 self.gameObjs=[pg.sprite.RenderPlain(),pg.sprite.RenderPlain(),pg.sprite.RenderPlain()]
                 for i in self.map.getMapObjects(self.section-1):

@@ -7,9 +7,9 @@ class Button(pg.sprite.Sprite):
         super(Button,self).__init__()
         self.image=pg.image.load(os.path.join("engine","UI","UISprites",sprite_dir[0],sprite_dir[1])).convert_alpha()
         self.image=pg.transform.scale(self.image, scale)
-        self.coords=coords
         self.rect = self.image.get_rect()
-        self.rect.center = coords
+        self.coords = coords
+        self.rect.center = (round(pg.display.get_window_size()[0]/2)+coords[0],round(pg.display.get_window_size()[1]/2)+coords[1])
         self.funcID=funcID
     
     def getCords(self):
@@ -21,3 +21,6 @@ class Button(pg.sprite.Sprite):
     def getScale(self):
         print(self.image.get_size())
         return self.image.get_size()
+
+    def update(self):
+        self.rect.center = (round(pg.display.get_window_size()[0]/2)-self.coords[0],round(pg.display.get_window_size()[1]/2)-self.coords[1])

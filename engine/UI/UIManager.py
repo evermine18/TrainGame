@@ -19,3 +19,6 @@ class UI():
 
     def isActive(self):
         return self.active
+
+    def reorganizeAll(self):
+        self.mainmenu.reOrganizeAll()
