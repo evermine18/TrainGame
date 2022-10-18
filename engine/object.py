@@ -3,7 +3,7 @@ import pygame as pg
 import os
 
 class Object(pg.sprite.Sprite):
-
+    
     def __init__(self,name,sprite_dir,coords=(0,0),scale=(100,100)):
         super(Object,self).__init__()
         self.name=name

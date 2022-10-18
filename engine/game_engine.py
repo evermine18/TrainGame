@@ -1,5 +1,6 @@
 import pygame as pg
-import engine.train,engine.object,engine.map_load,engine.camera,engine.UI.UIManager
+from engine import train,object,map_load,camera
+from engine.UI import UIManager
 import engine.multiplayer.connection
 import time,threading
 
@@ -7,11 +8,11 @@ colliders=[]
 
 class gameEngine():
     def __init__(self,debug):
-        self.camera = engine.camera.Camera()
-        self.train = engine.train.TrainObject("Train",["objects","complete_train.png"],-500,100)
+        self.camera = camera.Camera()
+        self.train = train.TrainObject("Train",["objects","complete_train.png"],-500,100)
         self.trains = pg.sprite.RenderPlain()
         self.gameObjs = [pg.sprite.RenderPlain(),pg.sprite.RenderPlain(),pg.sprite.RenderPlain()]
-        self.map=engine.map_load.mapLoad()
+        self.map=map_load.mapLoad()
         #MPTest, making mptrain list and we start the mp constructor
         #self.mpTrains={}
         #self.mp=engine.multiplayer.connection.connection(self.mpTrains,self.camera)
@@ -19,8 +20,9 @@ class gameEngine():
         #printInfo.start()
         self.running = True
         self.debug=debug
+        self.mpTrains = None
         if(debug):
-            self.font = pg.font.SysFont(None, 24)
+            self.font = pg.font.SysFont("font1", 24)
         #self.tree = engine.object.Object("Tree",["objects","tree.png"],100,380)
         #self.gameObjs.add(self.tree)
         #This loads the 3 first sections (-1,0,1)
@@ -32,7 +34,7 @@ class gameEngine():
             self.gameObjs[2].add(i)
         self.trains.add(self.train)
         self.section=0
-        #self.uiManager=engine.UI.UIManager.UI(self)
+        #self.uiManager=UIManager.UI(self)
 
     def isRunning(self):
         return self.running
@@ -53,7 +55,7 @@ class gameEngine():
             return 0
 
     def renderObjects(self,screen,clockFPS):
-        #self.uiManager.render(screen)
+        
         self.camera.update()
         #Multiplayer Update in progress
         #for train in self.mpTrains.values():
@@ -97,6 +99,8 @@ class gameEngine():
             self.gameObjs.append(pg.sprite.RenderPlain())
             for i in self.map.getMapObjects(self.section-1):
                 self.gameObjs[0].add(i)
+        #self.uiManager.render(screen)
+
     def keyEventsCheck(self):
         #Keyboard events
         for event in pg.event.get():
@@ -108,7 +112,7 @@ class gameEngine():
                 if event.key == pg.K_d:
                     self.camera.increaseSpeed()
             #Mouse event
-            #if event.type == pg.MOUSEBUTTONUP:
+            #if self.uiManager.isActive() == True and event.type == pg.MOUSEBUTTONUP:
             #    print(self.uiManager.checkButtonPressed())    
             #Screen resize event
             if event.type==pg.VIDEORESIZE:
