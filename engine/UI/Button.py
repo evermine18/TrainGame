@@ -23,4 +23,4 @@ class Button(pg.sprite.Sprite):
         return self.image.get_size()
 
     def update(self):
-        self.rect.center = (round(pg.display.get_window_size()[0]/2)-self.coords[0],round(pg.display.get_window_size()[1]/2)-self.coords[1])
+        self.rect.center = (round(pg.display.get_window_size()[0]/2)+self.coords[0],round(pg.display.get_window_size()[1]/2)+self.coords[1])
