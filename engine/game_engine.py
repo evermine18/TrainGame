@@ -62,24 +62,21 @@ class gameEngine():
         #Background
         screen.blit(self.background,(0,0))
         
-        self.camera.update()
         #Multiplayer Update in progress
         #for train in self.mpTrains.values():
         #    screen.blit(train.image,train.getCoords())
         #    userTagID = self.font.render(train.getName(), True, (255, 255, 0))
         #    screen.blit(userTagID, (train.getCoords()[0], train.getCoords()[1]))
+
+        #Draw train
         self.trains.draw(screen)
-        self.trains.update()
+
         # POSIBLE VISIBLE SECTION 0
         self.gameObjs[0].draw(screen)
-        self.gameObjs[0].update(self.camera.getCords())
         # VISIBLE SECTION 1
         self.gameObjs[1].draw(screen)
-        self.gameObjs[1].update(self.camera.getCords())
         # POSIBLE VISIBLE SECTION 2
         self.gameObjs[2].draw(screen)
-        self.gameObjs[2].update(self.camera.getCords())
-        #Draw train
         
         #Draws debug info if Debugging mode is enabled
         if(self.debug):
@@ -91,6 +88,21 @@ class gameEngine():
             screen.blit(current_section, (15, 70))
         # TODO 
         # Make a other function for conditions and game checks or map loads
+        
+        self.uiManager.render(screen)
+
+
+    def update(self):
+        #Camera Update
+        self.camera.update()
+        #Train Update
+        self.trains.update()
+        #Objects Update
+        self.gameObjs[0].update(self.camera.getCords())
+        self.gameObjs[1].update(self.camera.getCords())
+        self.gameObjs[2].update(self.camera.getCords())
+
+        #Section Change
         if self.checkSectionChange()==1:
             print("Load next section")
             self.section+=1
@@ -105,7 +117,7 @@ class gameEngine():
             self.gameObjs.append(pg.sprite.RenderPlain())
             for i in self.map.getMapObjects(self.section-1):
                 self.gameObjs[0].add(i)
-        self.uiManager.render(screen)
+
 
     def keyEventsCheck(self):
         #Keyboard events

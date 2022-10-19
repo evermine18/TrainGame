@@ -7,12 +7,13 @@ clock = pg.time.Clock()
 screen = pg.display.set_mode([500, 500], pg.RESIZABLE)
 pg.display.set_caption("TrainSim")
 # Engine setup
-g_engine=gameEngine(False)
+g_engine=gameEngine(True)
 while g_engine.isRunning():
     g_engine.keyEventsCheck()
     # Screen print 
     screen.fill((220, 236, 251))
     g_engine.renderObjects(screen,clock.get_fps())
+    g_engine.update()
     # Flip the display
     pg.display.flip()
     clock.tick(60)
