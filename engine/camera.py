@@ -1,4 +1,3 @@
-from turtle import speed
 import pygame as pg
 
 class Camera(pg.sprite.Sprite):

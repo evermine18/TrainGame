@@ -68,7 +68,8 @@ class gameEngine():
         #    screen.blit(train.image,train.getCoords())
         #    userTagID = self.font.render(train.getName(), True, (255, 255, 0))
         #    screen.blit(userTagID, (train.getCoords()[0], train.getCoords()[1]))
-        
+        self.trains.draw(screen)
+        self.trains.update()
         # POSIBLE VISIBLE SECTION 0
         self.gameObjs[0].draw(screen)
         self.gameObjs[0].update(self.camera.getCords())
@@ -79,8 +80,7 @@ class gameEngine():
         self.gameObjs[2].draw(screen)
         self.gameObjs[2].update(self.camera.getCords())
         #Draw train
-        self.trains.draw(screen)
-        self.trains.update()
+        
         #Draws debug info if Debugging mode is enabled
         if(self.debug):
             fps_count = self.font.render('FPS: '+str(clockFPS), True, (0, 255, 0))

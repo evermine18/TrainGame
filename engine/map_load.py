@@ -1,4 +1,4 @@
-import engine.object
+from engine import object,traffic_lights
 import os
 import pygame as pg
 
@@ -27,10 +27,16 @@ class mapLoad():
     def getMapObjects(self,section):
         self.loadedMap.clear()
         for obj in self.objectList:
-            if int(obj[1])>(section-1)*pg.display.get_window_size()[1] and int(obj[1])>section*pg.display.get_window_size()[1]:
-                self.loadedMap.append(engine.object.Object(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),pg.display.get_window_size()[1]-int(obj[2])),self.mapDefs.getScale(obj[0])))
-            elif section<0 and int(obj[1])<(section-1)*pg.display.get_window_size()[1] and int(obj[1])<section*pg.display.get_window_size()[1]:
-                self.loadedMap.append(engine.object.Object(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),pg.display.get_window_size()[1]-int(obj[2])),self.mapDefs.getScale(obj[0])))
+            if(obj[0]=="8"):
+                if int(obj[1])>(section-1)*pg.display.get_window_size()[1] and int(obj[1])>section*pg.display.get_window_size()[1]:
+                    self.loadedMap.append(traffic_lights.Traffic_lights(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),pg.display.get_window_size()[1]-int(obj[2])),self.mapDefs.getScale(obj[0])))
+                elif section<0 and int(obj[1])<(section-1)*pg.display.get_window_size()[1] and int(obj[1])<section*pg.display.get_window_size()[1]:
+                    self.loadedMap.append(traffic_lights.Traffic_lights(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),pg.display.get_window_size()[1]-int(obj[2])),self.mapDefs.getScale(obj[0])))
+            else:
+                if int(obj[1])>(section-1)*pg.display.get_window_size()[1] and int(obj[1])>section*pg.display.get_window_size()[1]:
+                    self.loadedMap.append(object.Object(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),pg.display.get_window_size()[1]-int(obj[2])),self.mapDefs.getScale(obj[0])))
+                elif section<0 and int(obj[1])<(section-1)*pg.display.get_window_size()[1] and int(obj[1])<section*pg.display.get_window_size()[1]:
+                    self.loadedMap.append(object.Object(obj[0],self.mapDefs.getDir(obj[0]),(int(obj[1]),pg.display.get_window_size()[1]-int(obj[2])),self.mapDefs.getScale(obj[0])))
         return self.loadedMap
 
 class mapDefinitions():
@@ -43,7 +49,8 @@ class mapDefinitions():
             "4":[["objects","bushflowers1.png"],(100, 100)],
             "5":[["objects","bushflowers2.png"],(100, 100)],
             "6":[["objects","midMount_L.png"],(139, 101)],
-            "7":[["objects","midMount_R.png"],(139, 101)]}
+            "7":[["objects","midMount_R.png"],(139, 101)],
+            "8":[["objects","traffic_light_green.png"],(38, 100)]}
     
     # Returns a list of a sprite dir of the requested object
     def getDir(self,name):

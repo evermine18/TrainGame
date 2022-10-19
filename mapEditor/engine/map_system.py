@@ -52,7 +52,8 @@ class mapDefinitions():
             "4":[["objects","bushflowers1.png"],(100, 100)],
             "5":[["objects","bushflowers2.png"],(100, 100)],
             "6":[["objects","midMount_L.png"],(139, 101)],
-            "7":[["objects","midMount_R.png"],(139, 101)]}
+            "7":[["objects","midMount_R.png"],(139, 101)],
+            "8":[["objects","traffic_light.png"],(38, 100)]}
     
     # Returns a list of a sprite dir of the requested object
     def getDir(self,name):
