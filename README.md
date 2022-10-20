@@ -49,11 +49,11 @@ We will need to install Python 3 and Pygame(library)
 # MINIMAL TODO
 
 - [ ] Animation system
-- [ ] Add UI to the game with main menu
 - [ ] Train UI
 - [ ] More map editor tools
 - [ ] Possible multiplayer
 - [ ] Engine phisics
+- [x] Add UI to the game with main menu
 - [x] Basic sprite rendering
 - [x] Sprite rendering with png
 - [x] Update sprite position

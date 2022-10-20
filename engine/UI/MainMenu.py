@@ -29,11 +29,11 @@ class MainMenu():
     #This function is called by a click event if the user has clicked on a button and execute the button bunction
     def buttonFunc(self):
         funcID=0
+        x, y = pg.mouse.get_pos()
         #For that checks every button pos
         for sprite in self.buttons:
-            if sprite.getCords()[0]<pg.mouse.get_pos()[0] and sprite.getCords()[1]<pg.mouse.get_pos()[1]:
-                if (sprite.getCords()[0]+sprite.getScale()[0])>pg.mouse.get_pos()[0] and (sprite.getCords()[1]+sprite.getScale()[1])>pg.mouse.get_pos()[1]:
-                    funcID=sprite.getFuncID()
+            if sprite.rect.collidepoint(x, y):
+                funcID=sprite.getFuncID()
 
         if funcID==1:
             self.active=False
