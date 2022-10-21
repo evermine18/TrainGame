@@ -3,3 +3,4 @@ engine/__pycache__
 engine/multiplayer/__pycache__
 engine/UI/__pycache__
 tempLogo/
+.vscode/
