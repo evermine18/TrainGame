@@ -15,5 +15,8 @@ class Image(pg.sprite.Sprite):
     def setCoords(self,coords):
         self.rect = pg.Rect(coords[0],coords[1],self.scale[0],self.scale[1])
 
+    def setX(self,x):
+        self.rect= pg.Rect(x,self.rect.y,self.scale[0],self.scale[1])
+
     def update(self,pos):
         self.rect.center = pos

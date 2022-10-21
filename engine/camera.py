@@ -1,6 +1,9 @@
 import pygame as pg
 
 class Camera(pg.sprite.Sprite):
+
+    wantedSpeed=0
+
     def __init__(self):
         self.x=0
         self.y=0
@@ -25,11 +28,13 @@ class Camera(pg.sprite.Sprite):
 
     def update(self):
         self.x = self.x + self.speed
+        self.wspeed = Camera.wantedSpeed
+        #print(Camera().wantedSpeed)
         if self.wspeed>self.speed:
             self.speed+=0.005
             if self.wspeed<self.speed:
                 self.speed=round(self.speed)
         elif self.wspeed<self.speed:
-            self.speed-=0.005
+            self.speed-=0.01
             if self.wspeed>self.speed:
                 self.speed=round(self.speed)

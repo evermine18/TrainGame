@@ -9,8 +9,8 @@ class UI():
         self.parentFuncs=pFuncs
         self.active=False
         self.activeUI=[]
-        #self.activeUI.append(trainUI.TrainUI(self))
-        self.activeUI.append(MainMenu.MainMenu(self))
+        self.activeUI.append(trainUI.TrainUI(self))
+        #self.activeUI.append(MainMenu.MainMenu(self))
 
     def render(self,screen):
         #Rendering the active UI
