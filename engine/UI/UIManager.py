@@ -1,27 +1,32 @@
 
 import engine.UI.Button
 import engine.game_engine
-import engine.UI.MainMenu
+from engine.UI import MainMenu,trainUI
 
 class UI():
     
     def __init__(self,pFuncs):
         self.parentFuncs=pFuncs
         self.active=False
-        self.mainmenu=engine.UI.MainMenu.MainMenu(self)
+        self.activeUI=[]
+        #self.activeUI.append(trainUI.TrainUI(self))
+        self.activeUI.append(MainMenu.MainMenu(self))
 
     def render(self,screen):
         #Rendering the active UI
-        if self.mainmenu.active==True:
-            self.mainmenu.render(screen)
+        if self.activeUI[0].active==True:
+            self.activeUI[0].render(screen)
 
     #Checks if a button of the current ui is pressed
-    def checkButtonPressed(self):
-        return self.mainmenu.buttonFunc()
+    def checkButtonPressed(self,type):
+        if type=="MOUSEDOWN":
+            return self.activeUI[0].buttonFunc()
+        if type=="MOUSEUP":
+            return self.activeUI[0].clickUP()
 
     def isActive(self):
         return self.active
 
     #Calls reorganizeAll function of the current actived UI
     def reorganizeAll(self):
-        self.mainmenu.reOrganizeAll()
+        self.activeUI[0].reOrganizeAll()

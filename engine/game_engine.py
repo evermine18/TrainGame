@@ -130,8 +130,10 @@ class gameEngine():
                 if event.key == pg.K_d:
                     self.camera.increaseSpeed()
             #Mouse event
+            if self.uiManager.isActive() == True and event.type == pg.MOUSEBUTTONDOWN:
+                print(self.uiManager.checkButtonPressed("MOUSEDOWN"))    
             if self.uiManager.isActive() == True and event.type == pg.MOUSEBUTTONUP:
-                print(self.uiManager.checkButtonPressed())    
+                print(self.uiManager.checkButtonPressed("MOUSEUP"))    
             #Screen resize event
             if event.type==pg.VIDEORESIZE:
                 print("si")

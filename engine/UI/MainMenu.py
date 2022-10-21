@@ -40,6 +40,9 @@ class MainMenu():
         if funcID==2:
             game_engine.gameEngine.running=False
 
+    def clickUP(self):
+        pass
+
     #Function which is responsible for readjusting everything components
     def reOrganizeAll(self):
         self.background=pg.image.load(os.path.join("engine","UI","UISprites","Images","menuBackground.png")).convert_alpha()
