@@ -13,15 +13,27 @@ class Arrow(pg.sprite.Sprite):
         self.coords=coords
         self.rect = self.image.get_rect()
         self.rect.center = coords
+        self.rotateOrg(120)
     
     def setCoords(self,coords):
         self.rect = pg.Rect(coords[0],coords[1],self.scale[0],self.scale[1])
+        self.rect = self.image.get_rect(center=self.rect.center)
 
     def setX(self,x):
         self.rect= pg.Rect(x,self.rect.y,self.scale[0],self.scale[1])
 
     def rotate(self,value):
-        self.image=pg.transform.rotate(self.orgImage,120-value)
+        value=-value
+        rotated_image = pg.transform.rotate(self.orgImage, value)
+        new_rect = rotated_image.get_rect(center=self.rect.center)
+        self.image=rotated_image
+        self.rect=new_rect
+
+    def rotateOrg(self,value):
+        rotated_image = pg.transform.rotate(self.orgImage, value)
+        new_rect = rotated_image.get_rect(center=self.rect.center)
+        self.orgImage=rotated_image
+        self.rect=new_rect
 
     def update(self,pos):
         self.rect.center = pos

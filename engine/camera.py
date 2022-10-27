@@ -33,7 +33,7 @@ class Camera(pg.sprite.Sprite):
         #print(Camera().wantedSpeed)
         if self.wspeed>self.speed:
             self.speed+=0.005
-            UI.updateUI(self.speed*25)
+            UI.updateUI(self.speed*20)
             if self.wspeed<self.speed:
                 self.speed=round(self.speed)
         elif self.wspeed<self.speed:
