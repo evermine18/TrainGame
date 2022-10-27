@@ -1,3 +1,4 @@
+from turtle import speed
 import pygame as pg
 
 class Camera(pg.sprite.Sprite):
@@ -26,15 +27,17 @@ class Camera(pg.sprite.Sprite):
     def decreaseSpeed(self):
         self.wspeed-=1
 
-    def update(self):
+    def update(self,UI):
         self.x = self.x + self.speed
         self.wspeed = Camera.wantedSpeed
         #print(Camera().wantedSpeed)
         if self.wspeed>self.speed:
             self.speed+=0.005
+            UI.updateUI(self.speed*25)
             if self.wspeed<self.speed:
                 self.speed=round(self.speed)
         elif self.wspeed<self.speed:
             self.speed-=0.01
+            UI.updateUI(-0.010)
             if self.wspeed>self.speed:
                 self.speed=round(self.speed)

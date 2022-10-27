@@ -13,7 +13,7 @@ class gameEngine():
 
     def __init__(self,debug):
         self.camera = camera.Camera()
-        self.train = train.TrainObject("Train",["objects","complete_train.png"],-500,100)
+        self.train = train.TrainObject("Train",["objects","NEWcomplete_trai2.png"],-500,100)
         self.trains = pg.sprite.RenderPlain()
         self.gameObjs = [pg.sprite.RenderPlain(),pg.sprite.RenderPlain(),pg.sprite.RenderPlain()]
         self.map=map_load.mapLoad()
@@ -94,7 +94,7 @@ class gameEngine():
 
     def update(self):
         #Camera Update
-        self.camera.update()
+        self.camera.update(self.uiManager)
         #Train Update
         self.trains.update()
         #Objects Update
