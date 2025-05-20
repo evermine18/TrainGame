@@ -8,7 +8,7 @@ import os
 
 colliders=[]
 
-class gameEngine():
+class GameEngine:
     running=True
 
     def __init__(self,debug):
@@ -136,3 +136,4 @@ class gameEngine():
                     self.gameObjs[1].add(i)
                 for i in self.map.getMapObjects(self.section+1):
                     self.gameObjs[2].add(i)
+
