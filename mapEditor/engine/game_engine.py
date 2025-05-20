@@ -5,7 +5,7 @@ import engine.train,engine.object,engine.posibleObject,engine.map_system,engine.
 
 colliders=[]
 
-class gameEngine():
+class GameEngine:
     def __init__(self,debug):
         self.camera = engine.camera.Camera()
         self.train = engine.train.TrainObject("Train",["objects","complete_train.png"],1000,450)
@@ -132,3 +132,4 @@ class gameEngine():
             
 
     
+

@@ -39,7 +39,7 @@ class MainMenu():
         if funcID==1:
             self.active=False
         if funcID==2:
-            game_engine.gameEngine.running=False
+            game_engine.GameEngine.running = False
 
     def reOrganizeAll(self):
         self.background=pg.image.load(os.path.join("engine","UI","UISprites","Images","menuBackground.png")).convert_alpha()
